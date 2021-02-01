@@ -1,7 +1,4 @@
-# bones_vm.pyig
-
-
-### bones_vm.pyig
+## bones-vm-pyig
 Utilities to interface D to Python - derived from autowrap:pyd and pyd. 
 
 Provides markup (via User Defined Attributes - UDAs) to expose d 
