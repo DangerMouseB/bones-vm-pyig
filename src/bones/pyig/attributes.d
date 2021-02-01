@@ -4,7 +4,7 @@ import std.traits : hasUDA;
 
 enum kwargs;
 enum args;
-enum include;
+enum pyexport;
 
 
 // unaryfunc - PyObject *(*unaryfunc)(PyObject *)¶

@@ -118,11 +118,11 @@ struct BTypeManager {
 
 }
 
-@include BType BSumType(BType[] sum) {return _tm.newSumType(sum);}
-@include BType[] typesInSum(BType t) {return _tm.typesInSum(t);}
+@pyexport BType BSumType(BType[] sum) {return _tm.newSumType(sum);}
+@pyexport BType[] typesInSum(BType t) {return _tm.typesInSum(t);}
 
 
-@include
+@pyexport
 struct BType {
     private int id;
 

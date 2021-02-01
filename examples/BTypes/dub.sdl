@@ -1,7 +1,7 @@
 name "btypes"
 description "Playing with sum types in python"
 authors "David Briant"
-copyright "Copyright © 2021, David Briant"
+copyright "Copyright (c) 2021, David Briant - All rights reserved."
 license "BSD"
 targetType "dynamicLibrary"
 
