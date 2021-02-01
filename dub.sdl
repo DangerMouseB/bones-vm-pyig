@@ -1,4 +1,4 @@
-name "bones_vm-pyig"
+name "bones-vm-pyig"
 description "Tools for interfacing python and d"
 targetType "library"
 authors "David Briant"

@@ -13,7 +13,7 @@ targetType "dynamicLibrary"
 # specified - define "importPaths" as well as "sourcePaths" as they are independent
 
 
-dependency "bones_vm-pyig" path="../.."
+dependency "bones-vm-pyig" path="../.."
 platforms "osx"
 #dflags "-version=Fred"
 
