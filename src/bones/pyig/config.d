@@ -1,4 +1,4 @@
-module bones_vm.pyig.config;
+module bones.pyig.config;
 
 
 // COULDDO add version(VERSION_ID) statements

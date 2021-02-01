@@ -1,4 +1,4 @@
-module bones_vm.pyig.boilerplate;      // adapted from autowrap:pyd
+module bones.pyig.boilerplate;      // adapted from autowrap:pyd
 
 /**
    Necessary boilerplate for pyd.
@@ -16,9 +16,9 @@ import std.format: format;
 import std.algorithm: map;
 import std.array: join;
 
-import bones_vm.pyig.awtypes: Modules, LibraryName, PreModuleInitCode, PostModuleInitCode, RootNamespace;
+import bones.pyig.awtypes: Modules, LibraryName, PreModuleInitCode, PostModuleInitCode, RootNamespace;
 
-import bones_vm.pyig.config : ShowPyInitSrc;
+import bones.pyig.config : ShowPyInitSrc;
 
 
 /**
@@ -87,7 +87,7 @@ string pydMainDSrc(
         extern(C) void PydMain() {
             import std.typecons: Yes, No;
             import pyd.pyd: module_init, add_module, ModuleName;
-            import bones_vm.pyig.scanning: createFunctionAdaptorsFor, createAggregateAdaptorsFor;
+            import bones.pyig.scanning: createFunctionAdaptorsFor, createAggregateAdaptorsFor;
 
             // this must go before module_init
 

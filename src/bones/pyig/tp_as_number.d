@@ -1,4 +1,4 @@
-module bones_vm.pyig.tp_as_number;
+module bones.pyig.tp_as_number;
 
 import std.algorithm: countUntil;
 //import std.meta : allSatisfy, AliasSeq, Filter, staticMap, templateNot;
@@ -25,7 +25,7 @@ import pyd.class_wrap : autoInitializeMethods;
 //import pyd.conversions.python_to_d : python_to_d;
 //import pyd.util.typeinfo : attrs_to_string, ApplyConstness, constness, NewParamT
 
-import bones_vm.pyig.adaptors : to_inquiry, inquiry;
+import bones.pyig.adaptors : to_inquiry, inquiry;
 
 
 

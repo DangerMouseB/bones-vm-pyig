@@ -18,9 +18,9 @@ import pyd.conversions.python_to_d : python_to_d;
 import pyd.references : PydTypeObject, is_wrapped;
 import pyd.pydobject : PydObject;
 
-import bones_vm.pyig.attributes;   // args, kwargs, __repr__ etc
-import bones_vm.pyig.utils : Py_RETURN_NOTIMPLEMENTED;
-import bones_vm.pyig.constants : Contains;
+import bones.pyig.attributes;   // args, kwargs, __repr__ etc
+import bones.pyig.utils : Py_RETURN_NOTIMPLEMENTED;
+import bones.pyig.constants : Contains, Py_EQ, Py_NE;
 
 
 
@@ -143,7 +143,6 @@ struct BType {
 
     @__richcmpfunc__
     PyObject* richcmpfunc(PyObject* _that, int op) {
-        import bones_vm.pyig.constants : Py_EQ, Py_NE;
         if (!PyObject_TypeCheck(_that, &PydTypeObject!(BType*))) {return Py_RETURN_NOTIMPLEMENTED();}
         BType that = python_to_d!BType(_that);
         if (op == Py_EQ) {return d_to_python(this == that);}

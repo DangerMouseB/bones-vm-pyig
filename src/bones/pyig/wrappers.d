@@ -1,4 +1,4 @@
-module bones_vm.pyig.wrappers;       // adapted from autowrap:pyd
+module bones.pyig.wrappers;       // adapted from autowrap:pyd
 
 import std.traits : FunctionAttribute, functionAttributes, variadicFunctionStyle, Variadic;
 
@@ -10,9 +10,9 @@ import pyd.def : def_selector, Args;
 import pyd.util.typeinfo : ApplyConstness, constness, attrs_to_string, tattrs_to_string;
 import pyd.util.replace : Replace;
 
-import bones_vm.pyig._dispatch : method_wrap;
-import bones_vm.pyig._dispatch_utils : minArgs;
-import bones_vm.pyig.attributes : signatureWithAttributes;
+import bones.pyig._dispatch : method_wrap;
+import bones.pyig._dispatch_utils : minArgs;
+import bones.pyig.attributes : signatureWithAttributes;
 
 
 // public interface
@@ -20,7 +20,7 @@ import bones_vm.pyig.attributes : signatureWithAttributes;
 public import pyd.class_wrap : OpCall, OpSliceAssign, Def, OpSlice, Len, OpIndex, OpIndexAssign, StaticDef, Property,
                                    OpAssign;
 public import pyd.def : PyName, def, ModuleName, Docstring;
-public import bones_vm.pyig.tp_slots : Init;
+public import bones.pyig.tp_slots : Init;
 
 
 
@@ -76,7 +76,7 @@ alias wrap_struct = wrap_class;
 // docstring = The function's docstring - efaults to ""
 
 struct Member(string dname, Options...) {
-    import bones_vm.pyig.tp_slots : set_tp_getset;
+    import bones.pyig.tp_slots : set_tp_getset;
     alias args = Args!("", "", dname, "rw", Options);
     mixin set_tp_getset!(dname, args.pyname, args.mode, args.docstring);
 }
@@ -102,7 +102,7 @@ docstring = The function's docstring. Defaults to "".
 
 struct MemberFunction(alias fn, Options...) {
     // DBHERE
-    //pragma(msg, "\nbones_vm.pyig.wrappers.MemberFunction  fn"~signatureWithAttributes!fn);
+    //pragma(msg, "\nbones.pyig.wrappers.MemberFunction  fn"~signatureWithAttributes!fn);
 
     alias args = Args!("", "", __traits(identifier, fn), "", Options);
 

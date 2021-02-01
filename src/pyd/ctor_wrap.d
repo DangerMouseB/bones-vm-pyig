@@ -38,8 +38,8 @@ import pyd.conversions.d_to_python : d_to_python;
 import pyd.conversions.python_to_d : python_to_d;
 
 
-import bones_vm.pyig._dispatch : callFuncArgsKwargsReturnDType;
-import bones_vm.pyig._dispatch_utils : supportsNArgs;
+import bones.pyig._dispatch : callFuncArgsKwargsReturnDType;
+import bones.pyig._dispatch_utils : supportsNArgs;
 
 
 

@@ -1,4 +1,4 @@
-module bones_vm.pyig.template_play;
+module bones.pyig.template_play;
 
 import std.conv;
 
@@ -7,10 +7,10 @@ import std.traits : isArray, hasMember, Parameters, fullyQualifiedName, ReturnTy
     isCallable;
 
 
-import bones_vm.pyig.attributes;   // args, kwargs, __add__ etc
+import bones.pyig.attributes;   // args, kwargs, __add__ etc
 
-import bones_vm.pyig.config : __ShouldThrow__;
-import bones_vm.pyig.traits : _filterMembersFor_tp_as_number, _isString, _isString2;
+import bones.pyig.config : __ShouldThrow__;
+import bones.pyig.traits : _filterMembersFor_tp_as_number, _isString, _isString2;
 
 
 struct Num {
@@ -51,7 +51,7 @@ void fred() {
     pragma(msg, "__ShouldThrow__ ", __ShouldThrow__);
 
 
-    pragma(msg, "__traits(allMembers, Num) ", __traits(allMembers, bones_vm.pyig.config));
+    pragma(msg, "__traits(allMembers, Num) ", __traits(allMembers, bones.pyig.config));
 
 
     alias x = _filterMembersFor_tp_as_number!Num;

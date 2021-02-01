@@ -2,7 +2,7 @@ module pyd.util.dg_wrapper;
 
 import std.traits;
 
-import bones_vm.pyig.config : PyiTrace;
+import bones.pyig.config : PyiTrace;
 
 
 // dirty hacks for converting between function and delegate types. As of DMD 0.174,

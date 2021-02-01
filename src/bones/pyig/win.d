@@ -1,4 +1,4 @@
-module win;
+module bones.pyig.win;
 
 /**
    Returns a string to be mixed in that defines DllMain, needed on Windows.

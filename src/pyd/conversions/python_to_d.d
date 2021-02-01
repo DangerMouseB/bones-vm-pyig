@@ -63,8 +63,8 @@ import pyd.exception : handle_exception;
 import pyd.util.dg_wrapper : dg_wrapper;
 import pyd.conversions.d_to_python : d_to_python, python_to_aarray;
 
-import bones_vm.pyig.traits : _isConstCharStar, _isCharStar;
-import bones_vm.pyig.wrappers : wrap_class, Def;
+import bones.pyig.traits : _isConstCharStar, _isCharStar;
+import bones.pyig.wrappers : wrap_class, Def;
 
 
 

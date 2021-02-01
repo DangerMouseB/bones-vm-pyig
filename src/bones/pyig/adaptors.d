@@ -1,4 +1,4 @@
-module bones_vm.pyig.adaptors;
+module bones.pyig.adaptors;
 
 //import std.meta : allSatisfy, AliasSeq, Filter, staticMap, templateNot;
 import std.format : format;

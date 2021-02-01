@@ -2,7 +2,7 @@
    Types to be used in the API for type-safety
    (as opposed to, say, raw strings).
  */
-module bones_vm.pyig.awtypes;
+module bones.pyig.awtypes;
 
 
 template isModule(alias T) {

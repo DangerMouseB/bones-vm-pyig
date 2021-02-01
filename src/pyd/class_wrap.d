@@ -50,14 +50,14 @@ import pyd.op_wrap;
 
 import pyd.util.replace: Replace;
 
-import bones_vm.pyig._dispatch : method_wrap;
-import bones_vm.pyig._dispatch_utils : minArgs;
-import bones_vm.pyig.config : PyiTrace;
-import bones_vm.pyig.attributes : signatureWithAttributes;
-import bones_vm.pyig.tp_slots : set_tp_init, set_tp_getset;
-import bones_vm.pyig.adaptors : to_unaryfunc, to_richcmpfunc, to_objobjproc, to_binaryfunc, to_ternaryfunc;
-import bones_vm.pyig.shim : shim_type;
-import bones_vm.pyig.traits : _isInit, _isOp;
+import bones.pyig._dispatch : method_wrap;
+import bones.pyig._dispatch_utils : minArgs;
+import bones.pyig.config : PyiTrace;
+import bones.pyig.attributes : signatureWithAttributes;
+import bones.pyig.tp_slots : set_tp_init, set_tp_getset;
+import bones.pyig.adaptors : to_unaryfunc, to_richcmpfunc, to_objobjproc, to_binaryfunc, to_ternaryfunc;
+import bones.pyig.shim : shim_type;
+import bones.pyig.traits : _isInit, _isOp;
 
 
 

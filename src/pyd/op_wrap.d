@@ -39,9 +39,9 @@ import pyd.conversions.d_to_python : d_to_python;
 import pyd.conversions.python_to_d : python_to_d;
 
 
-import bones_vm.pyig.config : PyiTrace;
-import bones_vm.pyig._dispatch : memberfunc_to_func, method_dgwrap, applyTernaryDelegateReturnPyObject, callFuncArgsKwargsReturnPyObject;
-import bones_vm.pyig.attributes : signatureWithAttributes, fnHasArgsAttr, fnHasKwargsAttr;
+import bones.pyig.config : PyiTrace;
+import bones.pyig._dispatch : memberfunc_to_func, method_dgwrap, applyTernaryDelegateReturnPyObject, callFuncArgsKwargsReturnPyObject;
+import bones.pyig.attributes : signatureWithAttributes, fnHasArgsAttr, fnHasKwargsAttr;
 
 
 
@@ -83,7 +83,7 @@ template powopasg_wrap(T, alias fn) {
 
 template opcall_wrap(C, alias fn, string classname) {
     // DBHERE
-    import bones_vm.pyig.attributes : signatureWithAttributes;
+    import bones.pyig.attributes : signatureWithAttributes;
     //static if(PyiTrace) pragma(msg, "pyd.op_wrap.opcall_wrap #1");
     static assert(constCompatible(constness!C, constness!(typeof(fn))),
             format("constness mismatch instance: %s function: %s",
@@ -130,7 +130,7 @@ template opcall_wrap(C, alias fn, string classname) {
                 }
 
                 alias func = memberfunc_to_func!(C, fn).func;
-                //static if(PyiTrace) pragma(msg, "bones_vm.pyig._dispatch.method_wrap func - "~signatureWithAttributes!func);
+                //static if(PyiTrace) pragma(msg, "bones.pyig._dispatch.method_wrap func - "~signatureWithAttributes!func);
                 return callFuncArgsKwargsReturnPyObject!(func, fname)( self_args, null);
 
             } else static if (!sigHasArgs && sigHasKwargs){
@@ -154,7 +154,7 @@ template opcall_wrap(C, alias fn, string classname) {
                 }
 
                 alias func = memberfunc_to_func!(C, fn).func;
-                //static if(PyiTrace) pragma(msg, "bones_vm.pyig._dispatch.method_wrap func - "~signatureWithAttributes!func);
+                //static if(PyiTrace) pragma(msg, "bones.pyig._dispatch.method_wrap func - "~signatureWithAttributes!func);
                 return callFuncArgsKwargsReturnPyObject!(func, fname)( self_kwargs, null);
 
             } else static if (sigHasArgs && sigHasKwargs){
@@ -183,7 +183,7 @@ template opcall_wrap(C, alias fn, string classname) {
                 }
 
                 alias func = memberfunc_to_func!(C, fn).func;
-                //static if(PyiTrace) pragma(msg, "bones_vm.pyig._dispatch.method_wrap func - "~signatureWithAttributes!func);
+                //static if(PyiTrace) pragma(msg, "bones.pyig._dispatch.method_wrap func - "~signatureWithAttributes!func);
                 return callFuncArgsKwargsReturnPyObject!(func, fname)( self_args_kwargs, null);
 
             } else {
@@ -200,7 +200,7 @@ template opcall_wrap(C, alias fn, string classname) {
                     PyTuple_SetItem( self_and_args, cast(Py_ssize_t) i+1, pobj);
                 }
                 alias func = oldmemberfunc_to_func!(C, fn).func;
-                //static if(PyiTrace) pragma(msg, "bones_vm.pyig._dispatch.method_wrap func - "~signatureWithAttributes!func);
+                //static if(PyiTrace) pragma(msg, "bones.pyig._dispatch.method_wrap func - "~signatureWithAttributes!func);
                 return callFuncArgsKwargsReturnPyObject!(func, fname)( self_and_args, kwargs);
 
 

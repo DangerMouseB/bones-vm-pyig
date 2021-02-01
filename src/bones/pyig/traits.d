@@ -1,4 +1,4 @@
-module bones_vm.pyig.traits;
+module bones.pyig.traits;
 
 
 import std.algorithm : startsWith;
@@ -10,8 +10,8 @@ public import mirror.meta.traits :
     _isStaticMemberFunctionFn=isStaticMemberFunction,
     _PublicFieldNamesFn=PublicFieldNames;
 
-import bones_vm.pyig.config : __ShouldThrow__;
-import bones_vm.pyig.attributes;    // args, kwargs, __add__ etc
+import bones.pyig.config : __ShouldThrow__;
+import bones.pyig.attributes;    // args, kwargs, __add__ etc
 
 
 

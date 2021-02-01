@@ -1,13 +1,13 @@
-module bones_vm.pyig.reflection;
+module bones.pyig.reflection;
 
 
 import std.meta: allSatisfy;
 import std.traits : getUDAs;
 import std.typecons: Flag, No;
 
-public import bones_vm.pyig.awtypes : isModule, Modules, Module, Ignore;
+public import bones.pyig.awtypes : isModule, Modules, Module, Ignore;
 
-import bones_vm.pyig.attributes;
+import bones.pyig.attributes;
 
 
 private enum isString(alias T) = is(typeof(T) == string);

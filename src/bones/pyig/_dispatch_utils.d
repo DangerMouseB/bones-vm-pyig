@@ -1,4 +1,4 @@
-module bones_vm.pyig._dispatch_utils;
+module bones.pyig._dispatch_utils;
 
 import std.format : format;
 import std.conv : to;

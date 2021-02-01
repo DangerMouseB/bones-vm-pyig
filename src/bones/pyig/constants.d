@@ -1,4 +1,4 @@
-module bones_vm.pyig.constants;
+module bones.pyig.constants;
 
 
 

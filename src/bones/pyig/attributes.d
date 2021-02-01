@@ -1,4 +1,4 @@
-module bones_vm.pyig.attributes;
+module bones.pyig.attributes;
 
 import std.traits : hasUDA;
 

@@ -1,4 +1,4 @@
-module bones_vm.pyig._dispatch;
+module bones.pyig._dispatch;
 
 
 // the imports section is a chance to express something about the overall structure
@@ -35,10 +35,10 @@ import pyd.func_wrap : setWrongArgsError, getparams;
 import pyd.conversions.d_to_python : d_to_python;
 import pyd.conversions.python_to_d : python_to_d;
 
-import bones_vm.pyig.attributes : signatureWithAttributes, fnHasArgsAttr, fnHasKwargsAttr;
-import bones_vm.pyig._dispatch_utils : supportsNArgs, minArgs, maxArgs, gensym;
-import bones_vm.pyig.utils : TupleComposer;
-import bones_vm.pyig.config : PyiTrace;
+import bones.pyig.attributes : signatureWithAttributes, fnHasArgsAttr, fnHasKwargsAttr;
+import bones.pyig._dispatch_utils : supportsNArgs, minArgs, maxArgs, gensym;
+import bones.pyig.utils : TupleComposer;
+import bones.pyig.config : PyiTrace;
 
 
 
@@ -404,7 +404,7 @@ template method_wrap(C, alias fn, string fname) {
                 }
 
                 alias func = memberfunc_to_func!(C, fn).func;
-                //static if(PyiTrace) pragma(msg, "bones_vm.pyig._dispatch.method_wrap func - "~signatureWithAttributes!func);
+                //static if(PyiTrace) pragma(msg, "bones.pyig._dispatch.method_wrap func - "~signatureWithAttributes!func);
                 return callFuncArgsKwargsReturnPyObject!(func, fname)( self_args, null);
 
             } else static if (!sigHasArgs && sigHasKwargs){
@@ -428,7 +428,7 @@ template method_wrap(C, alias fn, string fname) {
                 }
 
                 alias func = memberfunc_to_func!(C, fn).func;
-                //static if(PyiTrace) pragma(msg, "bones_vm.pyig._dispatch.method_wrap func - "~signatureWithAttributes!func);
+                //static if(PyiTrace) pragma(msg, "bones.pyig._dispatch.method_wrap func - "~signatureWithAttributes!func);
                 return callFuncArgsKwargsReturnPyObject!(func, fname)( self_kwargs, null);
 
             } else static if (sigHasArgs && sigHasKwargs){
@@ -457,7 +457,7 @@ template method_wrap(C, alias fn, string fname) {
                 }
 
                 alias func = memberfunc_to_func!(C, fn).func;
-                //static if(PyiTrace) pragma(msg, "bones_vm.pyig._dispatch.method_wrap func - "~signatureWithAttributes!func);
+                //static if(PyiTrace) pragma(msg, "bones.pyig._dispatch.method_wrap func - "~signatureWithAttributes!func);
                 return callFuncArgsKwargsReturnPyObject!(func, fname)( self_args_kwargs, null);
 
             } else {
@@ -474,7 +474,7 @@ template method_wrap(C, alias fn, string fname) {
                     PyTuple_SetItem( self_and_args, cast(Py_ssize_t) i+1, pobj);
                 }
                 alias func = memberfunc_to_func!(C, fn).func;
-                //static if(PyiTrace) pragma(msg, "bones_vm.pyig._dispatch.method_wrap func - "~signatureWithAttributes!func);
+                //static if(PyiTrace) pragma(msg, "bones.pyig._dispatch.method_wrap func - "~signatureWithAttributes!func);
                 return callFuncArgsKwargsReturnPyObject!(func, fname)( self_and_args, kwargs);
             }
         });

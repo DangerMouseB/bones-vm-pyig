@@ -1,4 +1,4 @@
-module bones_vm.pyig.tp_slots;
+module bones.pyig.tp_slots;
 
 
 import std.algorithm: countUntil;
@@ -28,9 +28,9 @@ import pyd.conversions.d_to_python : d_to_python;
 import pyd.conversions.python_to_d : python_to_d;
 import pyd.class_wrap : Infer;
 
-import bones_vm.pyig._dispatch_utils : supportsNArgs;
-import bones_vm.pyig.adaptors : to_reprfunc, reprfunc, to_richcmpfunc, richcmpfunc, to_PyGetSetDef;
-import bones_vm.pyig._dispatch : callFuncArgsKwargsReturnDType;
+import bones.pyig._dispatch_utils : supportsNArgs;
+import bones.pyig.adaptors : to_reprfunc, reprfunc, to_richcmpfunc, richcmpfunc, to_PyGetSetDef;
+import bones.pyig._dispatch : callFuncArgsKwargsReturnDType;
 
 
 
@@ -157,7 +157,7 @@ template set_tp_getset(string dname, string pyname, string mode, string docstrin
     static const bool needs_shim = false;
     static void assemble(string classname, T) () {
         import std.algorithm : countUntil;
-        import bones_vm.pyig.adaptors : to_PyGetSetDef;
+        import bones.pyig.adaptors : to_PyGetSetDef;
         import deimos.python.descrobject : PyGetSetDef;
         import pyd.class_wrap : wrapped_prop_list;
         static PyGetSetDef empty = {null, null, null, null, null};

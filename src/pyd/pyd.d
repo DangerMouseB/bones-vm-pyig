@@ -39,8 +39,8 @@ public {
     import pyd.conversions.python_to_d;
     import pyd.pydobject;
 
-    import bones_vm.pyig._dispatch_utils;
-    import bones_vm.pyig.wrappers : wrap_class;
+    import bones.pyig._dispatch_utils;
+    import bones.pyig.wrappers : wrap_class;
 
     // Importing these is only needed as a workaround to bug #311
     import pyd.ctor_wrap;

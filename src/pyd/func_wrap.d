@@ -45,9 +45,9 @@ import pyd.exception;
 import pyd.conversions.d_to_python : d_to_python, items_to_PyTuple;
 import pyd.conversions.python_to_d : python_to_d;
 
-import bones_vm.pyig.attributes : args, kwargs, signatureWithAttributes;
-import bones_vm.pyig._dispatch : applyTernaryDelegateReturnPyObject, callFuncArgsKwargsReturnPyObject;
-import bones_vm.pyig._dispatch_utils : supportsNArgs, minArgs, maxArgs;
+import bones.pyig.attributes : args, kwargs, signatureWithAttributes;
+import bones.pyig._dispatch : applyTernaryDelegateReturnPyObject, callFuncArgsKwargsReturnPyObject;
+import bones.pyig._dispatch_utils : supportsNArgs, minArgs, maxArgs;
 
 
 template hasFunctionAttrs(T) {

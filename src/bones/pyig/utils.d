@@ -1,4 +1,4 @@
-module bones_vm.pyig.utils;
+module bones.pyig.utils;
 
 import std.traits : isAssignable;
 

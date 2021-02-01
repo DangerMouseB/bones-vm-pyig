@@ -1,8 +1,8 @@
 import std.typecons: Yes, No;
 
-import bones_vm.pyig.awtypes: Modules, Module, Ignore, LibraryName;
+import bones.pyig.awtypes: Modules, Module, Ignore, LibraryName;
 
-import bones_vm.pyig.boilerplate : genPydMainSrcFor;
+import bones.pyig.boilerplate : genPydMainSrcFor;
 
 
 enum str = genPydMainSrcFor!(
