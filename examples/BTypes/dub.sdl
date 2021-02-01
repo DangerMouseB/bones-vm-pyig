@@ -1,0 +1,28 @@
+name "btypes"
+description "Playing with sum types in python"
+authors "David Briant"
+copyright "Copyright © 2021, David Briant"
+license "BSD"
+targetType "dynamicLibrary"
+
+
+# To choose a configuration, use dub --config=<name>. By default, the first configuration
+# that matches the target type and build platform is selected automatically.
+
+# any folder "source" or "src" is automatically used as a source path if no sourcePaths setting is
+# specified - define "importPaths" as well as "sourcePaths" as they are independent
+
+
+dependency "bones_vm-pyig" path="../.."
+platforms "osx"
+#dflags "-version=Fred"
+
+
+buildType "debug" {
+    postBuildCommands "if [ -f libbtypes.dylib ]; then  mv libbtypes.dylib btypes.so; fi" platform="osx"
+    preBuildCommands "if [ -f libbtypes.dylib ]; then rm -f libbtypes.dylib; fi" platform="osx"
+    preBuildCommands "if [ -f btypes.so ]; then rm -f btypes.so; fi" platform="osx"
+}
+
+importPaths "src/"
+sourcePaths "src/"
