@@ -1,6 +1,22 @@
 https://dangermouseb.github.io/bones-vm-pyig/
 
 ## bones-vm-pyig
+
+### Abstract
+
+
+### Structure
+
+./projects - each sub-folder contains all the files for a project, including notes/documentation, 
+  research
+
+./src - d source code\
+./src/bones/pyig\
+./src/deimos - snapshot from pyd project\
+./src/pyd - files that haven't been refactored wholesale yet\
+
+
+
 Utilities to interface D to Python - derived from autowrap:pyd and pyd. 
 
 Provides markup (via User Defined Attributes - UDAs) to expose d 
@@ -58,97 +74,5 @@ mixin(Replace!(q{
 #### Examples
 
 1. see ./examples/BTypes
-
-2. imaginary code might be:
-
-```
-struct Vector {
-    private ubyte nDims;
-    private ubyte dimension;
-    private ubyte units;
-    private ubyte other;
-    double x;
-    double y;
-    double z;
-
-    @property
-    double norm() {...}
-
-    Vector opBinary(string op)(Vector rhs) if op == "+" {}
-    Vector opBinary(string op)(Vector rhs) if op == "*" {return crossProduct(that)}
-    Vector opBinary(string op)(double rhs) if op == "*" {return scalarMul(that)}
-    Vector opBinaryRight(string op)(Vector lhs) if op == "*" {return crossProduct(lhs)}
-    Vector opBinaryRight(string op)(double lhs) if op == "*" {return scalarMul(lhs)}
-
-
-    string toString() {"<"~x.to!string~", "~y.to!string~", "~z.to!string~">"}
-
-    bool opEquals(Vector that) {}
-
-    fromDouble(double[] v, dimensions=null, units=null) {...}
-
-    @__matmul__
-    Vector crossProduct(Vector
-
-    @__mul__
-    Vector scalarMul(double rhs) {...}
-
-    @__rmul__
-    Vector scalarMul(double rhs) {...}
-
-    @__eq__
-    PyObject* pyEquals(PyObject* rhs) {...}
-
-    @__add__
-    PyObject* pyAdd(PyObject* rhs) {...}
-
-    @__radd__
-    PyObject* pyAdd(PyObject* lhs) {...}
-
-    @__init__
-    void init1(double x) {...}
-    
-    @__init__
-    void init2(double x, double y) {...}
-    
-    @__init__
-    void init3(double x, double y, double z) {
-        answer.x = x ;
-        answer.y = y;
-        answer.z = z;
-        if (x is null) {answer.nDims = 0;}
-        else if (y is null) {answer.nDims = 1;}
-        else if (z is null) {answer.nDims = 2;}
-        else if (y is null) {answer.nDims = 3;}
-        if (x is null) {answer.nDims = 0;}
-    }
-    
-    @__init__
-    void fromInts(@args *PyObject v) {this.fromInts(ints.checkTo!([]int]());}
-    
-    @__repr__
-    string pyRepr() {return "vector("~x.to!string~", "~y.to!string~", "~z.to!string~")";}
-
-    @__str__
-    string pyStr() {return "["~x.to!string~", "~y.to!string~", "~z.to!string~"]";}
-    
-}
-
-
-@__new__("metersPerSecond")
-Vector newPartialSum(Vector cls, @args PyObject* args, @kwargs PyObject* kwargs)) {
-    Vector answer;
-    answer.dimension = "[L T−1]".to!dimension;
-    answer.unit = "meters".to!unit;
-    return answer
-}
-
-@def
-string displayInInches(Vector x): {}
-```
-
-Python should just see `metersPerSecond` as a new type and a new function 
-`displayInInches`.
-
 
 
