@@ -44,4 +44,4 @@ NB: D discourages functions to be prefixes with \_\_, however, conveniently for 
 
 ### Bones
 
-In case you're curious bones is a collection of hobby utilities (including a toy vm) to assist my children in learning how to progra and me to learn D.
+In case you're curious, bones is a collection of hobby utilities (including a toy vm) to assist my children in learning how to program and me to learn D.
