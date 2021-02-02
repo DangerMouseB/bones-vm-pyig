@@ -151,7 +151,7 @@ template PrimordialType(T) {
 
 package template isExportFunction(alias F, Flag!"alwaysExport" alwaysExport = No.alwaysExport) {
     import std.traits: isFunction;
-    enum hasInclude = getUDAs!(F, include).length != 0;
+    enum hasInclude = getUDAs!(F, pyexport).length != 0;
     static if(!isFunction!F)
         enum isExportFunction = false || hasInclude;
     else {

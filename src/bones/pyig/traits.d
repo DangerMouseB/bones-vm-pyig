@@ -80,7 +80,7 @@ template _isString2(alias T) {
 // ?_isPublicFunction
 template _isPublicFunction(alias F) {
     enum p = __traits(getProtection, F);
-    enum hasInclude = getUDAs!(F, include).length != 0;
+    enum hasInclude = getUDAs!(F, pyexport).length != 0;
     static if (isFunction!F && (p == "export" || p == "public")) {
         //pragma(msg, "_isPublicFunction ", fullyQualifiedName!F, ", ", hasInclude);
     }
