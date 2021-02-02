@@ -1,9 +1,4 @@
-Utilities to interface D to Python - derived from autowrap:pyd and pyd. 
 
-Provides markup (via User Defined Attributes - UDAs) to expose d 
-functions, structs, etc to python without requiring redesign of d code, just markup and clarification code.
-
-<br> 
 
 What does this give us?
 
@@ -21,42 +16,10 @@ providing attributes we can mark up methods to give this control, for example:
 
 
 
-We rely on more recent D compilers which are able to do the following (thx to Adam Ruppe for the hint):
-
-```
-mixin(Replace!(q{
-        @(__traits(getAttributes, memfn))                 <-- copies the UDAs from memfn to func
-        Ret func(T $t, $params) {
-            auto dg = dg_wrapper($t, &memfn);
-            return dg($ids);
-        }
-    }, "$params", params, "$fn", __traits(identifier, memfn), "$t",t,
-       "$ids",Join!(",",ids)));
-```
-
-
-
-#### Thus far
-
-* structs are now working
-* @\_\_richcmpfunc__ instead of opCmp (so can return Py_RETURN_NOTIMPLEMENTED), also don't need opEquals
-* @args, @kwargs  - as function attrs rather than parameter attrs - can't blend with other variables yet
-* refactoring and tidyup - naming to reflect cpython api where possible
-* keep old d api used in the pyd examples - needs testing
-* gives a detailed log as compiling to make it easier to debug
-
-
-#### WISHLIST
-
-1. any vulnerabilities get discovered by PyCharm in the variable inspector in debug mode - make it easy to prevent this
-2. have a clear public api
-3. be deployable on pypi
 
 #### Examples
 
-1. see ./examples/BTypes
-
-2. imaginary code might be:
+imaginary code might be:
 
 ```
 struct Vector {
