@@ -4,12 +4,16 @@
 2. have a clear public api (keeping pyd "wrap" api)
 3. be deployable on pypi
 
+4. all pyd examples and tests should work
+5. use a d testing framework as well as python tests
+
+
 <br>
 
 ## Next stage [MoSCoW]
 
 #### MustDo
-* fix segmentation fault when accessing a struct member
+
 
 
 #### ShouldDo
@@ -21,11 +25,18 @@
 
 
 #### WontDo
-* blend normal arguments with PyObject*[] args and PyObject*[string] kwargs
+* blend normal arguments with PyObject*[] args and PyObject*[string] kwargs - for moment just the three combinations of args + kwargs or current implementation
 
 <br>
 
 ## Completed
+
+#### to 2021.02.14
+
+* add __hash__ so a struct can be used as a key in a python dict
+* fix segmentation fault when accessing a struct member
+
+#### to 2021.02.07
 
 * added licenses
 * described repo in readme and set up https://dangermouseb.github.io/bones-vm-pyig/

@@ -11,6 +11,7 @@ import std.traits : Parameters, ReturnType, FunctionTypeOf, isPointer; //, Param
 //import std.typetuple: TypeTuple; //, staticMap, NoDuplicates, staticIndexOf, allSatisfy;
 
 import deimos.python.object : PyObject, Py_INCREF, Py_None, Py_LT, Py_LE, Py_EQ, Py_NE, Py_GT, Py_GE;
+import deimos.python.pyport : Py_hash_t;
 import deimos.python.boolobject : Py_True, Py_False;
 //import deimos.python.object : PyObject, , Py_DECREF, Py_XDECREF, Py_XINCREF, ;
 import deimos.python.abstract_ : PyObject_IsInstance;
@@ -37,6 +38,7 @@ import pyd.conversions.python_to_d : python_to_d;
 // our signatures - self is missing from the sig
 alias inquiry = int function();
 alias reprfunc = string function();                                 // in cpython api reprfunc function answers PyObject* - we'll handle the conversion below
+alias hashfunc = Py_hash_t function();
 alias initproc = int function(PyObject*, PyObject*);
 alias richcmpfunc = PyObject* function(PyObject*, int);
 
@@ -67,6 +69,21 @@ template to_reprfunc(T, alias fn) {
         return exception_catcher(delegate PyObject*() {
             auto dg = dg_wrapper!(T, typeof(&fn))(get_d_reference!T(pySelf), &fn);
             return d_to_python(dg());
+        });
+    }
+}
+
+
+// ?to_hashfunc
+template to_hashfunc(T, alias fn) {
+    static assert(
+        constCompatible(constness!T, constness!(typeof(fn))),
+        format("constness mismatch instance: %s function: %s", T.stringof, typeof(fn).stringof)
+    );
+    extern(C) Py_hash_t hashfunc(PyObject* pySelf) {
+        return exception_catcher(delegate Py_hash_t() {
+            auto dg = dg_wrapper!(T, typeof(&fn))(get_d_reference!T(pySelf), &fn);
+            return dg();
         });
     }
 }

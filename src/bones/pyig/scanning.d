@@ -20,10 +20,10 @@ import bones.pyig.awtypes : isModule;
 
 import bones.pyig.attributes;   // args, kwargs, __repr__ etc
 import bones.pyig.traits : _isOperator, _isPropertyFn, _isStaticMemberFunctionFn, _PublicFieldNamesFn,
-    _isPublicFunction, _isMemberFunctionFn, _memberExprFromNameFn, _isMemberFnWithUda;
+    _isPublicFn, _isMemberFunctionFn, _memberExprFromNameFn, _isMemberFnWithUda;
 import bones.pyig.config : SupressOperatorCompileErrors, __AlwaysTry__;
 
-import bones.pyig.tp_slots : set_tp_repr, set_tp_str, set_tp_richcompare;
+import bones.pyig.tp_slots : set_tp_repr, set_tp_str, set_tp_richcompare, set_tp_hash;
 import bones.pyig.tp_as_number : set_nb_bool;
 import bones.pyig.template_play : fred;
 import bones.pyig.reflection : isUserAggregate, AllFunctions, AllAggregates;
@@ -91,6 +91,8 @@ void wrapAggregate(T)() if(isUserAggregate!T) {
     alias memberExprFromNameUnary(string memberName) = _memberExprFromNameFn!(T, memberName);
 
     alias members = staticMap!(memberExprFromNameUnary, __traits(allMembers, T));
+    alias publicMemberFunctions = Filter!(_isPublicFn, members);
+
     alias memberFunctions = Filter!(_isMemberFunctionFn, members);
     alias magicMethods = Filter!(isMagicMethod, members);
 
@@ -109,16 +111,19 @@ void wrapAggregate(T)() if(isUserAggregate!T) {
     alias strFns = Filter!(_isMemberFnWithUda!__str__, memberFunctions);
     alias boolFns = Filter!(_isMemberFnWithUda!__bool__, memberFunctions);
     alias richcmpFns = Filter!(_isMemberFnWithUda!__richcmpfunc__, memberFunctions);
+    alias hashFns = Filter!(_isMemberFnWithUda!__hash__, publicMemberFunctions);
 
     static if (reprFns.length > 0) pragma(msg, "__repr__ ", reprFns);
     static if (strFns.length > 0) pragma(msg, "__str__ ", strFns);
     static if (boolFns.length > 0) pragma(msg, "__bool__ ", boolFns);
     static if (richcmpFns.length > 0) pragma(msg, "__richcmpfunc__ ", richcmpFns);
+    static if (hashFns.length > 0) pragma(msg, "__hash__ ", hashFns);
 
     static assert (reprFns.length <= 1, "More than one @__repr__ for "~T.stringof);
     static assert (strFns.length <= 1, "More than one @__str__ for "~T.stringof);
     static assert (boolFns.length <= 1, "More than one @__bool__ for "~T.stringof);
     static assert (richcmpFns.length <= 1, "More than one @__richcmpfunc__ for "~T.stringof);
+    static assert (hashFns.length <= 1, "More than one @__hash__ for "~T.stringof);
 
     //enum compiledReprs = staticMap!(assertFuncCompiles, reprFns);
 
@@ -137,6 +142,7 @@ void wrapAggregate(T)() if(isUserAggregate!T) {
         staticMap!(set_tp_repr, reprFns),
         staticMap!(set_tp_str, strFns),
         staticMap!(set_tp_richcompare, richcmpFns),
+        staticMap!(set_tp_hash, hashFns),
 
         // tp_as_number
         staticMap!(set_nb_bool, boolFns),
@@ -305,7 +311,37 @@ private bool opFuncHasMagicAttr(T, string opName, alias opFunc, string op)() {
     }
 }
 
-private bool hasUDA(alias func, alias uda)() {return getUDAs!(func, uda).length != 0;}
+
+
+//private bool hasUDA(alias func, alias uda)() {return getUDAs!(func, uda).length != 0;}
+
+//private bool hasUDA(alias func, alias uda) = { enum hasUDA = () { return getUDAs!(func, uda).length != 0; } (); }
+//private bool hasUDA(alias func, alias uda) = {
+//  enum hasUDA = () {
+//     return getUDAs!(func, uda).length != 0;
+//  } ();
+//};
+private template hasUDA(alias func, alias uda) {
+    enum hasUDA = () {
+        return getUDAs!(func, uda).length != 0;
+    } ();
+}
+
+
+//enum x(int y) = () { return y; };
+//enum x(int y) = { return y; };
+//pragma(msg, x!6);
+//
+//x!6 =>  () { return 6; }
+//
+//int f_6()
+//{
+//   return 6;
+//}
+
+
+//enum x(int y) = { return y; };
+
 
 
 private void probeTemplate(T, string opName, string op)() {
@@ -409,7 +445,7 @@ private template isMagicMethod(A...) if(A.length == 1) {
 
     static if(__AlwaysTry__ || __traits(compiles, __traits(identifier, T))){
         enum name = __traits(identifier, T);
-        enum isMagicMethod = _isPublicFunction!T && name.startsWith("__");
+        enum isMagicMethod = _isPublicFn!T && name.startsWith("__");
     }else{
         enum isMagicMethod = false;
     }

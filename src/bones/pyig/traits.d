@@ -10,7 +10,7 @@ public import mirror.meta.traits :
     _isStaticMemberFunctionFn=isStaticMemberFunction,
     _PublicFieldNamesFn=PublicFieldNames;
 
-import bones.pyig.config : __ShouldThrow__;
+import bones.pyig.config : __pyigIgnoreCTErrors__;
 import bones.pyig.attributes;    // args, kwargs, __add__ etc
 
 
@@ -77,21 +77,20 @@ template _isString2(alias T) {
     alias _isString2 = res;
 }
 
-// ?_isPublicFunction
-template _isPublicFunction(alias F) {
+// ?_isPublicFn
+template _isPublicFn(alias F) {
     enum p = __traits(getProtection, F);
-    enum hasInclude = getUDAs!(F, pyexport).length != 0;
+    enum hasInclude = getUDAs!(F, pyexport).length > 0;
     static if (isFunction!F && (p == "export" || p == "public")) {
-        //pragma(msg, "_isPublicFunction ", fullyQualifiedName!F, ", ", hasInclude);
+        //pragma(msg, "_isPublicFn ", fullyQualifiedName!F, ", ", hasInclude);
     }
-    enum _isPublicFunction = isFunction!F && (p == "export" || p == "public" || hasInclude);
-    //enum _isPublicFunction = isFunction!F && (p == "public");
+    enum _isPublicFn = isFunction!F && (p == "export" || p == "public" || hasInclude);
 }
 
 // ?_isMemberFunctionFn
 template _isMemberFunctionFn(A...) if(A.length == 1) {
     alias T = A[0];
-    static if(!__ShouldThrow__ && !__traits(compiles, __traits(identifier, T))){
+    static if(__pyigIgnoreCTErrors__ && !__traits(compiles, __traits(identifier, T))){
         enum _isMemberFunctionFn = false;
     }else{
         enum name = __traits(identifier, T);
@@ -101,7 +100,7 @@ template _isMemberFunctionFn(A...) if(A.length == 1) {
         //bool opEquals(ref const typeof(this) s) const @safe pure nothrow;
         // see - https://dlang.org/spec/hash-map.html#using_struct_as_key and
         //        https://dlang.org/spec/hash-map.html#using_classes_as_key
-        enum _isMemberFunctionFn = _isPublicFunction!T && !name.startsWith("__") && name != "toHash";
+        enum _isMemberFunctionFn = _isPublicFn!T && !name.startsWith("__") && name != "toHash";
     }
 }
 
@@ -141,7 +140,7 @@ template _isCharStar(T) {
 // ne autowrap.python.wrap.Symbol
 template _memberExprFromNameFn(alias T, string memberName) {
     alias self(alias T) = T;
-    static if(!__ShouldThrow__ && !__traits(compiles, self!(__traits(getMember, T, memberName))))
+    static if(__pyigIgnoreCTErrors__ && !__traits(compiles, self!(__traits(getMember, T, memberName))))
         alias _memberExprFromNameFn = void;
     else
         alias _memberExprFromNameFn = self!(__traits(getMember, T, memberName));

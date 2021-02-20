@@ -9,7 +9,7 @@ import std.traits : isArray, hasMember, Parameters, fullyQualifiedName, ReturnTy
 
 import bones.pyig.attributes;   // args, kwargs, __add__ etc
 
-import bones.pyig.config : __ShouldThrow__;
+import bones.pyig.config : __pyigIgnoreCTErrors__;
 import bones.pyig.traits : _filterMembersFor_tp_as_number, _isString, _isString2;
 
 
@@ -48,7 +48,7 @@ int addImpl(int a, int b) {return a + b;}
 
 void fred() {
     pragma(msg, "-------------------");
-    pragma(msg, "__ShouldThrow__ ", __ShouldThrow__);
+    pragma(msg, "__pyigIgnoreCTErrors__ ", __pyigIgnoreCTErrors__);
 
 
     pragma(msg, "__traits(allMembers, Num) ", __traits(allMembers, bones.pyig.config));

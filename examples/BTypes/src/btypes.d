@@ -151,7 +151,7 @@ struct BType {
     }
 
     @__hash__
-    size_t toHash() const @safe pure nothrow {return this.id;}
+    Py_hash_t tp_hash() {return cast(Py_hash_t) this.toHash();};
 
     @__init__
     this(string name) {id = _tm.typeIdOrNew(name);}

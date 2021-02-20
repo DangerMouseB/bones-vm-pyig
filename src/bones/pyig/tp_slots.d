@@ -29,7 +29,7 @@ import pyd.conversions.python_to_d : python_to_d;
 import pyd.class_wrap : Infer;
 
 import bones.pyig._dispatch_utils : supportsNArgs;
-import bones.pyig.adaptors : to_reprfunc, reprfunc, to_richcmpfunc, richcmpfunc, to_PyGetSetDef;
+import bones.pyig.adaptors : to_reprfunc, reprfunc, to_hashfunc, hashfunc, to_richcmpfunc, richcmpfunc, to_PyGetSetDef;
 import bones.pyig._dispatch : callFuncArgsKwargsReturnDType;
 
 
@@ -60,6 +60,21 @@ struct set_tp_str(alias _fn) {
         alias cT = ApplyConstness!(T, constness!(typeof(fn)));
         alias type = PydTypeObject!(T);
         type.tp_str = &to_reprfunc!(cT, fn).reprfunc;
+    }
+    template shim(size_t i,T) {
+        enum shim = "";
+    }
+}
+
+
+// ?set_tp_hash
+struct set_tp_hash(alias _fn) {
+    alias fn = def_selector!(_fn, hashfunc).FN;
+    enum bool needs_shim = false;
+    static void assemble(string classname, T)() {
+        alias cT = ApplyConstness!(T, constness!(typeof(fn)));
+        alias type = PydTypeObject!(T);
+        type.tp_hash = &to_hashfunc!(cT, fn).hashfunc;
     }
     template shim(size_t i,T) {
         enum shim = "";
