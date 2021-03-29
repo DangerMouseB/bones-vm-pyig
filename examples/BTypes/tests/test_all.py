@@ -5,7 +5,7 @@ import btypes
 print(dir(btypes))
 
 
-from btypes import BType, BSumType, typesInSum
+from btypes import BType, BTSum, typesInSum
 
 
 
@@ -28,17 +28,17 @@ def testComparisons():
         BType("utf8") < BType("utf8")
 
 def testMySumType():
-    s1 = BSumType([BType("utf8"), BType("null")])
+    s1 = BTSum(BType("utf8"), BType("null"))
     print(s1)
     print(typesInSum(s1))
-    s2 = BSumType([BType("utf8"), BType("null")])
-    s3 = BSumType([BType("i32"), BType("null")])
+    s2 = BTSum(BType("utf8"), BType("null"))
+    s3 = BTSum(BType("i32"), BType("null"))
     assert s1 == s2
     assert s1 is not s2
     assert s1 != s3
 
 def testAddAndIn():
-    s1 = BSumType([BType("utf8"), BType("null")])
+    s1 = BTSum(BType("utf8"), BType("null"))
     assert(BType("null") in s1)
     assert(s1 not in BType("i32"))
     print(dir(BType("i32")))
